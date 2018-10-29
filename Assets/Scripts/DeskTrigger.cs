@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DeskTrigger : MonoBehaviour {
 
-    public string triggerName = "desk0";
+    public string triggerName;
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.GetComponent<PlayerContent>().answers.ContainsKey(triggerName))
@@ -13,7 +13,10 @@ public class DeskTrigger : MonoBehaviour {
             {
                 collision.GetComponent<PlayerContent>().fetchProgress += collision.GetComponent<PlayerContent>().fetchSpeed * Time.deltaTime;
             }
-            collision.GetComponent<PlayerContent>().answers[triggerName] = true;
+            else
+            {
+                collision.GetComponent<PlayerContent>().answers[triggerName] = true;
+            }
         }
     }
 }

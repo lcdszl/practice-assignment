@@ -10,50 +10,61 @@ public class PlayerContent : MonoBehaviour {
     [Range(0.0f, 100.0f)]
     public float fetchProgress;
 
+    public int playerNum;
     public Slider fetchSlider;
     public Image fetchSliderImage;
     public Color fetchInProgressColor = Color.red;
     public Color fetchDoneColor = Color.green;
+    public int currentSeatNum = 0;
 
-    private bool beenSeen = false;
-
-    public Dictionary<string, bool> answers = new Dictionary<string, bool>() { { "desk0", false } };
+    public Dictionary<string, bool> answers = new Dictionary<string, bool>();
+    public List<GameObject> answerDestinations;
 
     private bool reachedSeat = false;
 
     public void Update()
     {
         SetFetchUI();
+        if (HasWon())
+        {
+            return;
+        }
     }
-
-    public void HasBeenSeen()
-    {
-        beenSeen = true;
-    }
-
 
     public void ReachedSeat()
     {
         reachedSeat = true;
     }
 
+    public void LeftSeat()
+    {
+        reachedSeat = false;
+    }
+
     public bool HasWon()
     {
-        return true;
-        //return (!beenSeen) && gotAnswer && reachedSeat;
+        bool gotAnswers = true;
+        foreach (bool gotAnswer in answers.Values)
+        {
+            gotAnswers = gotAnswer && gotAnswers;
+        }
+        return gotAnswers && reachedSeat;
     }
 
     public void Reset()
     {
-        beenSeen = false;
         reachedSeat = false;
+        currentSeatNum = 0;
     }
 
     private void OnEnable()
     {
         fetchProgress = 0.0f;
-
         SetFetchUI();
+        foreach (GameObject desk in answerDestinations)
+        {
+            answers.Add(desk.GetComponent<DeskTrigger>().triggerName, false);
+        }
     }
 
     private void SetFetchUI()

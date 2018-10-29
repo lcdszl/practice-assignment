@@ -11,7 +11,10 @@ public class FieldOfView : MonoBehaviour {
     public LayerMask targetMask;
     public LayerMask roomMask;
 
+    public Dictionary<int, int> playersLastSeenSeat = new Dictionary<int, int>();
     public List<Transform> seenPlayers = new List<Transform>();
+
+    public bool foundPlayer = false;
 
     private float upMod;
     private float rightMod;
@@ -24,7 +27,7 @@ public class FieldOfView : MonoBehaviour {
 
     public IEnumerator CheckForPlayer()
     {
-        while (true)
+        while (!foundPlayer)
         {
             yield return null;
             FindVisibleTarget();
@@ -82,7 +85,25 @@ public class FieldOfView : MonoBehaviour {
 
     public void SetPlayerAsSeen(Collider2D playerObject)
     {
-        playerObject.GetComponent<PlayerContent>().HasBeenSeen();
+        int currentSeat = playerObject.GetComponent<PlayerContent>().currentSeatNum;
+        int playerNum = playerObject.GetComponent<PlayerContent>().playerNum;
+        if (currentSeat == 0 )
+        {
+            GameOver();
+        }
+        else if (playersLastSeenSeat[playerNum] == 0)
+        {
+            playersLastSeenSeat[playerNum] = currentSeat;
+        }
+        else if (playersLastSeenSeat[playerNum] != currentSeat)
+        {
+            GameOver();
+        }
+    }
+
+    private void GameOver()
+    {
+        foundPlayer = true;
     }
 
 }
