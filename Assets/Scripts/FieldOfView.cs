@@ -91,9 +91,9 @@ public class FieldOfView : MonoBehaviour {
         {
             GameOver();
         }
-        else if (playersLastSeenSeat[playerNum] == 0)
+        else if (!playersLastSeenSeat.ContainsKey(playerNum))
         {
-            playersLastSeenSeat[playerNum] = currentSeat;
+            playersLastSeenSeat.Add(playerNum, currentSeat);
         }
         else if (playersLastSeenSeat[playerNum] != currentSeat)
         {

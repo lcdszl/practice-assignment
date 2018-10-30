@@ -33,7 +33,6 @@ public class EnemyMovement : MonoBehaviour {
 
     private IEnumerator MoveRoutine()
     {
-
         int i;
         for (i = 0; i < waypoints.Length; i++)
         {
