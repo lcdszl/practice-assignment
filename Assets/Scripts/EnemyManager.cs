@@ -38,4 +38,9 @@ public class EnemyManager : MonoBehaviour {
         instance.SetActive(true);
     }
 
+    public bool FoundPlayer()
+    {
+        return fieldOfView.foundPlayer;
+    }
+
 }
