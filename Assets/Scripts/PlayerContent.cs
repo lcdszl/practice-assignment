@@ -55,16 +55,25 @@ public class PlayerContent : MonoBehaviour {
     {
         reachedSeat = false;
         currentSeatNum = 0;
+        answers.Clear();
+        foreach (GameObject desk in answerDestinations)
+        {
+            answers.Add(desk.GetComponent<DeskTrigger>().triggerName, false);
+        }
+    }
+
+    public void SetAnswers()
+    {
+        foreach (GameObject desk in answerDestinations)
+        {
+            answers.Add(desk.GetComponent<DeskTrigger>().triggerName, false);
+        }
     }
 
     private void OnEnable()
     {
         fetchProgress = 0.0f;
         SetFetchUI();
-        foreach (GameObject desk in answerDestinations)
-        {
-            answers.Add(desk.GetComponent<DeskTrigger>().triggerName, false);
-        }
     }
 
     private void SetFetchUI()

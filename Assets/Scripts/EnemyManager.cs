@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour {
+[Serializable]
+public class EnemyManager {
 
     public Transform spawnPoint;
+    [HideInInspector]
     public GameObject instance;
     [HideInInspector]
     public int enemyNum;
@@ -12,10 +15,11 @@ public class EnemyManager : MonoBehaviour {
     private EnemyMovement enemyMovement;
     private FieldOfView fieldOfView;
 
-    public void Setup()
+    public void Setup(Transform[] wayPoints)
     {
         enemyMovement = instance.GetComponent<EnemyMovement>();
         fieldOfView = instance.GetComponent<FieldOfView>();
+        enemyMovement.waypoints = wayPoints;
     }
 
     public void DisableMovement()
@@ -33,7 +37,7 @@ public class EnemyManager : MonoBehaviour {
     public void Reset()
     {
         instance.transform.position = spawnPoint.position;
-
+        fieldOfView.foundPlayer = false;
         instance.SetActive(false);
         instance.SetActive(true);
     }

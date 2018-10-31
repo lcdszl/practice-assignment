@@ -114,8 +114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9906db253380f5f42856b39b2e6d851b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 20
-  viewAngle: 62
+  viewRadius: 30
+  viewAngle: 114
   targetMask:
     serializedVersion: 2
     m_Bits: 512
@@ -123,6 +123,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   seenPlayers: []
+  foundPlayer: 0
   currentForward: {x: 0, y: 1, z: 0}
 --- !u!212 &212916838133973046
 SpriteRenderer:

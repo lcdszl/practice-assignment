@@ -11,7 +11,7 @@ public class EnemyMovement : MonoBehaviour {
     public float upMod;
     public float rightMod;
 	// Use this for initialization
-	void Start () {
+	void OnEnable () {
         rb2D = GetComponent<Rigidbody2D>();
         StartCoroutine(MoveRoutine());
 	}
@@ -20,7 +20,7 @@ public class EnemyMovement : MonoBehaviour {
     protected IEnumerator SmoothMovement(Vector3 end)
     {
         float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
-        while (sqrRemainingDistance > 0.1f)
+        while (sqrRemainingDistance > 0.1f && enabled)
         {
             Vector3 newPosition = Vector3.MoveTowards(rb2D.position, end, speed * Time.deltaTime);
             //upMod = newPosition.y - rb2D.position.y == 0f ? 0 : (int)(Mathf.Sign(newPosition.y - rb2D.position.y));
@@ -36,16 +36,32 @@ public class EnemyMovement : MonoBehaviour {
         int i;
         for (i = 0; i < waypoints.Length; i++)
         {
-            CalculateMods(waypoints[i]);
-            yield return StartCoroutine(SmoothMovement(waypoints[i].position));
-            ResetMod();
+            if (waypoints[i] != null)
+            {
+                CalculateMods(waypoints[i]);
+                yield return StartCoroutine(SmoothMovement(waypoints[i].position));
+                ResetMod();
+            }
+            else
+            {
+                yield return null;
+            }
+
         }
 
         for (int j = i-1; j >= 0; j--)
         {
-            CalculateMods(waypoints[j]);
-            yield return StartCoroutine(SmoothMovement(waypoints[j].position));
-            ResetMod();
+            if (waypoints[j] != null)
+            {
+                CalculateMods(waypoints[j]);
+                yield return StartCoroutine(SmoothMovement(waypoints[j].position));
+                ResetMod();
+            }
+            else
+            {
+                yield return null;
+            }
+
         }
         StartCoroutine(MoveRoutine());
 

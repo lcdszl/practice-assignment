@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4089402009108758}
   - component: {fileID: 61584677179427598}
+  - component: {fileID: 114369841925164538}
   m_Layer: 0
   m_Name: DeskHolder
   m_TagString: Untagged
@@ -36,7 +37,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4369350264693960}
   - component: {fileID: 212276961589990194}
-  - component: {fileID: 114080781494321002}
   - component: {fileID: 61778019249485188}
   m_Layer: 8
   m_Name: Desk
@@ -122,18 +122,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.28, y: 0.67}
   m_EdgeRadius: 0
---- !u!114 &114080781494321002
+--- !u!114 &114369841925164538
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1811187646329010}
+  m_GameObject: {fileID: 1307862508280618}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f259727f6f19c5d41957c06aace40f7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerName: deskcustom0
+  triggerName: desk0
 --- !u!212 &212276961589990194
 SpriteRenderer:
   m_ObjectHideFlags: 1

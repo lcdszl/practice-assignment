@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour {
+[Serializable]
+public class PlayerManager {
     [HideInInspector]
     public Color playerColor;
     [HideInInspector]
@@ -15,10 +17,12 @@ public class PlayerManager : MonoBehaviour {
     private PlayerMovement playerMovement;
     private PlayerContent playerContent;
 
-    public void Setup()
+    public void Setup(List<GameObject> answerDests)
     {
         playerMovement = instance.GetComponent<PlayerMovement>();
         playerContent = instance.GetComponent<PlayerContent>();
+        playerContent.answerDestinations = answerDests;
+        playerContent.SetAnswers();
     }
 
     public void DisableControl()

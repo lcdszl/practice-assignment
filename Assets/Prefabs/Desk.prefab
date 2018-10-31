@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f259727f6f19c5d41957c06aace40f7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerName: deskcustom0
+  triggerName: 
 --- !u!212 &212893644709801180
 SpriteRenderer:
   m_ObjectHideFlags: 1

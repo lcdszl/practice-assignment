@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour {
 
-    public Transform[] EnemiesLocations;
-    public Transform[] PlayerLocations;
+    public EnemyRoutine[] EnemyWaypoints;
+    public List<GameObject> AnswerDestinations;
     public GameObject enemyPrefab;
     public GameObject playerPrefab;
 
@@ -15,17 +15,20 @@ public class LevelManager : MonoBehaviour {
     public EnemyManager[] enemies;
     public PlayerManager[] players;
 
-
+    private WaitForSeconds startWaitSec;
+    private WaitForSeconds endWaitSec;
 
 	// Use this for initialization
 	void Start () {
-		
+        SpawnAllPlayers();
+        SpawnAllEnemies();
+
+        startWaitSec = new WaitForSeconds(startWait);
+        endWaitSec = new WaitForSeconds(endWait);
+
+        StartCoroutine(GameLoop());
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     private IEnumerator GameLoop()
     {
@@ -40,7 +43,7 @@ public class LevelManager : MonoBehaviour {
     {
         ResetAllEnemies();
         ResetAllPlayers();
-        yield return startWait;
+        yield return startWaitSec;
     }
 
     private IEnumerator LevelPlaying()
@@ -57,40 +60,29 @@ public class LevelManager : MonoBehaviour {
     {
         DisableAllEnemies();
         DisableAllPlayers();
-        yield return endWait;
+        yield return endWaitSec;
     }
 
 
     public void SpawnAllEnemies()
     {
-        if (EnemiesLocations.Length != enemies.Length)
+        for (int i=0; i<enemies.Length; i++)
         {
-            return;
+            enemies[i].instance = Instantiate(enemyPrefab, enemies[i].spawnPoint.position, enemies[i].spawnPoint.rotation) as GameObject;
+            enemies[i].Setup(EnemyWaypoints[i].EnemyWaypoints);
         }
-        else
-        {
-            for (int i=0; i<EnemiesLocations.Length; i++)
-            {
-                enemies[i].instance = Instantiate(enemyPrefab, EnemiesLocations[i]);
-                enemies[i].Setup();
-            }
-        }
+
     }
 
     public void SpawnAllPlayers()
     {
-        if (PlayerLocations.Length != players.Length)
+
+        for (int i=0; i<players.Length; i++)
         {
-            return;
+            players[i].instance = Instantiate(playerPrefab, players[i].spawnPoint.position, players[i].spawnPoint.rotation) as GameObject;
+            players[i].Setup(AnswerDestinations);
         }
-        else
-        {
-            for (int i=0; i<PlayerLocations.Length; i++)
-            {
-                players[i].instance = Instantiate(playerPrefab, PlayerLocations[i]);
-                players[i].Setup();
-            }
-        }
+
     }
 
     public void ResetAllEnemies()

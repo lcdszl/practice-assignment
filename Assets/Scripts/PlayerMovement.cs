@@ -8,12 +8,17 @@ public class PlayerMovement : MonoBehaviour {
     public float velocity = 10f;
 
 	// Use this for initialization
-	void Start () {
+	void OnEnable () {
         rb2d = GetComponent<Rigidbody2D>();
         rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
 	}
-	
-	void FixedUpdate () {
+
+    private void OnDisable()
+    {
+        rb2d.velocity = new Vector2(0, 0);
+    }
+
+    void FixedUpdate () {
 
         float v = Input.GetAxis("Vertical");
         float h = Input.GetAxis("Horizontal");

@@ -20,7 +20,7 @@ public class FieldOfView : MonoBehaviour {
     private float rightMod;
     public Vector3 currentForward;
 
-    public void Start()
+    public void OnEnable()
     {
         StartCoroutine(CheckForPlayer());
     }
@@ -69,6 +69,7 @@ public class FieldOfView : MonoBehaviour {
 
         for (int i = 0; i < sawObjects.Length; i++)
         {
+            float offset = CalcAngle();
             Vector3 dirToTarget = (sawObjects[i].transform.position - transform.position).normalized;
             if (Vector3.Angle(currentForward, dirToTarget) < viewAngle / 2)
             {
