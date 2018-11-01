@@ -12,16 +12,20 @@ public class PlayerManager {
     [HideInInspector]
     public GameObject instance;
 
-    public Transform spawnPoint;
+    public GameObject homeSeat;
+    [HideInInspector]
+    public PlayerMovement playerMovement;
+    [HideInInspector]
+    public PlayerContent playerContent;
 
-    private PlayerMovement playerMovement;
-    private PlayerContent playerContent;
+    private const int SPAWN_INDEX = 1;
 
     public void Setup(List<GameObject> answerDests)
     {
         playerMovement = instance.GetComponent<PlayerMovement>();
         playerContent = instance.GetComponent<PlayerContent>();
         playerContent.answerDestinations = answerDests;
+        playerContent.homeSeat = homeSeat;
         playerContent.SetAnswers();
     }
 
@@ -39,8 +43,7 @@ public class PlayerManager {
 
     public void Reset()
     {
-        instance.transform.position = spawnPoint.position;
-
+        instance.transform.position = homeSeat.transform.position + Positions.seatOffset;
         instance.SetActive(false);
         instance.SetActive(true);
     }

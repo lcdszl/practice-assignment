@@ -229,6 +229,7 @@
     <Compile Include="Assets\Scripts\PlayerContent.cs" />
     <Compile Include="Assets\Scripts\PlayerManager.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\Positions.cs" />
     <Compile Include="Assets\Scripts\SeatTrigger.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour {
 
     public EnemyRoutine[] EnemyWaypoints;
     public List<GameObject> AnswerDestinations;
+    public GameObject[] Seats;
     public GameObject enemyPrefab;
     public GameObject playerPrefab;
 
@@ -65,7 +66,7 @@ public class LevelManager : MonoBehaviour {
         EnableTimerUI();
         EnableAllEnemies();
         EnableAllPlayers();      
-        while (!FoundPlayer())
+        while (!FoundPlayer() && !AllPlayerWon())
         {
             IncrementTimer();
             yield return null;
@@ -97,7 +98,8 @@ public class LevelManager : MonoBehaviour {
 
         for (int i=0; i<players.Length; i++)
         {
-            players[i].instance = Instantiate(playerPrefab, players[i].spawnPoint.position, players[i].spawnPoint.rotation) as GameObject;
+            players[i].homeSeat = Seats[UnityEngine.Random.Range(0, Seats.Length - 1)];
+            players[i].instance = Instantiate(playerPrefab, players[i].homeSeat.transform.position + Positions.seatOffset, players[i].homeSeat.transform.rotation) as GameObject;
             players[i].Setup(AnswerDestinations);
         }
 
@@ -115,6 +117,7 @@ public class LevelManager : MonoBehaviour {
     {
         for (int i=0; i<players.Length; i++)
         {
+            players[i].homeSeat = Seats[UnityEngine.Random.Range(0, Seats.Length - 1)];
             players[i].Reset();
         }
         levelText.text = "Get the answer!";
@@ -188,6 +191,16 @@ public class LevelManager : MonoBehaviour {
         }
         levelText.text = found ? "You have been seen!" : "Good Job!";
         return found;
+    }
+
+    private bool AllPlayerWon()
+    {
+        bool hasWon = true;
+        for (int i = 0; i < players.Length; i++)
+        {         
+            hasWon = hasWon && players[i].playerContent.HasWon();
+        }
+        return hasWon;
     }
 
 }

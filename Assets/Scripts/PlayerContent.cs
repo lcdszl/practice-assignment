@@ -19,54 +19,45 @@ public class PlayerContent : MonoBehaviour {
 
     public Dictionary<string, bool> answers = new Dictionary<string, bool>();
     public List<GameObject> answerDestinations;
-
-    private bool reachedSeat = false;
+    public GameObject homeSeat;
 
     public void Update()
     {
         SetFetchUI();
-        if (HasWon())
-        {
-            return;
-        }
     }
 
-    public void ReachedSeat()
+    public bool ReachedHomeSeat()
     {
-        reachedSeat = true;
-    }
-
-    public void LeftSeat()
-    {
-        reachedSeat = false;
+        return currentSeatNum == homeSeat.GetComponent<SeatTrigger>().seatNum;
     }
 
     public bool HasWon()
     {
-        bool gotAnswers = true;
+        bool gotAnswers = answers.Count > 0 ? true : false;
         foreach (bool gotAnswer in answers.Values)
         {
             gotAnswers = gotAnswer && gotAnswers;
         }
-        return gotAnswers && reachedSeat;
+        return gotAnswers && ReachedHomeSeat();
     }
 
     public void Reset()
     {
-        reachedSeat = false;
         currentSeatNum = 0;
         answers.Clear();
-        foreach (GameObject desk in answerDestinations)
-        {
-            answers.Add(desk.GetComponent<DeskTrigger>().triggerName, false);
-        }
+        SetAnswers();
     }
 
     public void SetAnswers()
     {
+        if (answerDestinations == null) return;
         foreach (GameObject desk in answerDestinations)
         {
-            answers.Add(desk.GetComponent<DeskTrigger>().triggerName, false);
+            if (desk != null)
+            {
+                answers.Add(desk.GetComponent<DeskTrigger>().triggerName, false);
+            }
+            
         }
     }
 
@@ -74,6 +65,7 @@ public class PlayerContent : MonoBehaviour {
     {
         fetchProgress = 0.0f;
         SetFetchUI();
+        Reset();
     }
 
     private void SetFetchUI()
