@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour {
 
@@ -18,6 +20,15 @@ public class LevelManager : MonoBehaviour {
     private WaitForSeconds startWaitSec;
     private WaitForSeconds endWaitSec;
 
+    public float totalTime;
+
+    public GameObject timerHolder;
+    public Text timerDisplay;
+    public GameObject levelImage;
+    public Text levelText;
+
+    private float timeLeft;
+
 	// Use this for initialization
 	void Start () {
         SpawnAllPlayers();
@@ -28,7 +39,6 @@ public class LevelManager : MonoBehaviour {
 
         StartCoroutine(GameLoop());
 	}
-	
 
     private IEnumerator GameLoop()
     {
@@ -43,23 +53,31 @@ public class LevelManager : MonoBehaviour {
     {
         ResetAllEnemies();
         ResetAllPlayers();
+        DisableAllEnemies();
+        DisableAllPlayers();
+        EnableLevelUI();
         yield return startWaitSec;
     }
 
     private IEnumerator LevelPlaying()
     {
+        DisableLevelUI();
+        EnableTimerUI();
         EnableAllEnemies();
-        EnableAllPlayers();
+        EnableAllPlayers();      
         while (!FoundPlayer())
         {
+            IncrementTimer();
             yield return null;
         }
     }
 
     private IEnumerator LevelEnding()
     {
+        DisableTimerUI();
         DisableAllEnemies();
         DisableAllPlayers();
+        EnableLevelUI();
         yield return endWaitSec;
     }
 
@@ -99,6 +117,7 @@ public class LevelManager : MonoBehaviour {
         {
             players[i].Reset();
         }
+        levelText.text = "Get the answer!";
     }
 
     public void DisableAllEnemies()
@@ -133,6 +152,33 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
+    private void EnableLevelUI()
+    {       
+        levelImage.SetActive(true);
+    }
+
+    private void DisableLevelUI()
+    {
+        levelImage.SetActive(false);
+    }
+
+    private void EnableTimerUI()
+    {
+        timeLeft = totalTime;
+        timerHolder.SetActive(true);  
+    }
+
+    private void DisableTimerUI()
+    {
+        timerHolder.SetActive(false);
+    }
+
+    private void IncrementTimer()
+    {
+        timeLeft -= Time.deltaTime;
+        timerDisplay.text = Convert.ToString(Mathf.Round(timeLeft));
+    }
+
     private bool FoundPlayer()
     {
         bool found = false; 
@@ -140,6 +186,8 @@ public class LevelManager : MonoBehaviour {
         {
             found = found || enemies[i].FoundPlayer();
         }
+        levelText.text = found ? "You have been seen!" : "Good Job!";
         return found;
     }
+
 }
