@@ -11,6 +11,7 @@ public class LevelManager : MonoBehaviour {
     public GameObject[] Seats;
     public GameObject enemyPrefab;
     public GameObject playerPrefab;
+    public float timeMultiplier;
 
     public float startWait = 2f;
     public float endWait = 2f;
@@ -30,8 +31,10 @@ public class LevelManager : MonoBehaviour {
 
     private float timeLeft;
 
-	// Use this for initialization
-	void Start () {
+    private bool foundPlayer;
+    private bool allPlayerWon;
+    // Use this for initialization
+    void Start () {
         SpawnAllPlayers();
         SpawnAllEnemies();
 
@@ -65,9 +68,11 @@ public class LevelManager : MonoBehaviour {
         DisableLevelUI();
         EnableTimerUI();
         EnableAllEnemies();
-        EnableAllPlayers();      
-        while (!FoundPlayer() && !AllPlayerWon())
+        EnableAllPlayers();
+        while (!foundPlayer && !allPlayerWon)
         {
+            foundPlayer = FoundPlayer();
+            allPlayerWon = AllPlayerWon();
             IncrementTimer();
             yield return null;
         }
@@ -78,6 +83,7 @@ public class LevelManager : MonoBehaviour {
         DisableTimerUI();
         DisableAllEnemies();
         DisableAllPlayers();
+        SetEndScreen();
         EnableLevelUI();
         yield return endWaitSec;
     }
@@ -111,6 +117,7 @@ public class LevelManager : MonoBehaviour {
         {
             enemies[i].Reset();
         }
+        foundPlayer = false;
     }
 
     public void ResetAllPlayers()
@@ -121,6 +128,7 @@ public class LevelManager : MonoBehaviour {
             players[i].Reset();
         }
         levelText.text = "Get the answer!";
+        allPlayerWon = false;
     }
 
     public void DisableAllEnemies()
@@ -189,7 +197,6 @@ public class LevelManager : MonoBehaviour {
         {
             found = found || enemies[i].FoundPlayer();
         }
-        levelText.text = found ? "You have been seen!" : "Good Job!";
         return found;
     }
 
@@ -203,4 +210,24 @@ public class LevelManager : MonoBehaviour {
         return hasWon;
     }
 
+    private void SetEndScreen()
+    {
+        if (foundPlayer)
+        {
+            levelText.text = "YOU WERE SPOTTED!";
+        }
+        else if (allPlayerWon)
+        {
+            levelText.text = "GOOD JOB! \n\n";
+            for (int i = 0; i < players.Length; i++)
+            {
+                levelText.text += "Player" + (i + 1) + "'s Score: " + CalcScore() + "\n\n"; 
+            }
+        }
+    }
+
+    private float CalcScore()
+    {
+        return Mathf.Round(timeMultiplier * timeLeft);
+    }
 }

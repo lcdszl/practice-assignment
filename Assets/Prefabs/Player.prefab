@@ -195,6 +195,7 @@ MonoBehaviour:
   currentSeatNum: 0
   answerDestinations:
   - {fileID: 0}
+  homeSeat: {fileID: 0}
 --- !u!114 &114065714252956124
 MonoBehaviour:
   m_ObjectHideFlags: 1

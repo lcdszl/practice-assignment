@@ -1430,6 +1430,7 @@ MonoBehaviour:
     type: 2}
   playerPrefab: {fileID: 1354808007893212, guid: 938401555a6d9c342946ab3de89ca3ac,
     type: 2}
+  timeMultiplier: 30
   startWait: 2
   endWait: 2
   enemies:
@@ -1441,7 +1442,9 @@ MonoBehaviour:
     playerNum: 0
     instance: {fileID: 0}
     homeSeat: {fileID: 0}
-  totalTime: 30
+    playerMovement: {fileID: 0}
+    playerContent: {fileID: 0}
+  totalTime: 120
   timerHolder: {fileID: 2102996431}
   timerDisplay: {fileID: 1066183091}
   levelImage: {fileID: 1195323714}
