@@ -41,9 +41,15 @@ public class PlayerManager {
         playerContent.enabled = true;
     }
 
+    public void SetHomeSeat(GameObject homeSeat)
+    {
+        this.homeSeat = homeSeat;
+    }
+
     public void Reset()
     {
         instance.transform.position = homeSeat.transform.position + Positions.seatOffset;
+        playerContent.homeSeat = homeSeat;
         instance.SetActive(false);
         instance.SetActive(true);
     }

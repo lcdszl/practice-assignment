@@ -104,7 +104,7 @@ public class LevelManager : MonoBehaviour {
 
         for (int i=0; i<players.Length; i++)
         {
-            players[i].homeSeat = Seats[UnityEngine.Random.Range(0, Seats.Length - 1)];
+            players[i].SetHomeSeat(Seats[UnityEngine.Random.Range(0, Seats.Length - 1)]);
             players[i].instance = Instantiate(playerPrefab, players[i].homeSeat.transform.position + Positions.seatOffset, players[i].homeSeat.transform.rotation) as GameObject;
             players[i].Setup(AnswerDestinations);
         }
@@ -124,7 +124,7 @@ public class LevelManager : MonoBehaviour {
     {
         for (int i=0; i<players.Length; i++)
         {
-            players[i].homeSeat = Seats[UnityEngine.Random.Range(0, Seats.Length - 1)];
+            players[i].SetHomeSeat(Seats[UnityEngine.Random.Range(0, Seats.Length - 1)]);
             players[i].Reset();
         }
         levelText.text = "Get the answer!";

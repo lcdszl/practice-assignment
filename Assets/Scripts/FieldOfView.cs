@@ -22,6 +22,7 @@ public class FieldOfView : MonoBehaviour {
 
     public void OnEnable()
     {
+        playersLastSeenSeat.Clear();
         StartCoroutine(CheckForPlayer());
     }
 
