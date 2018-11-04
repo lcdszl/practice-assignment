@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb2D: {fileID: 50969817715457712}
-  speed: 10
+  speed: 20
   waypoints:
   - {fileID: 0}
   - {fileID: 0}

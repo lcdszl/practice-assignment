@@ -33,6 +33,11 @@ public class LevelManager : MonoBehaviour {
 
     private bool foundPlayer;
     private bool allPlayerWon;
+
+    private const string LevelStartText = "Find The Answer!";
+    private const string EndSpottedText = "You Were Spotted!";
+    private const string TimeRunOutText = "Out of Time!";
+
     // Use this for initialization
     void Start () {
         SpawnAllPlayers();
@@ -69,7 +74,7 @@ public class LevelManager : MonoBehaviour {
         EnableTimerUI();
         EnableAllEnemies();
         EnableAllPlayers();
-        while (!foundPlayer && !allPlayerWon)
+        while (!foundPlayer && !allPlayerWon && timeLeft>0f)
         {
             foundPlayer = FoundPlayer();
             allPlayerWon = AllPlayerWon();
@@ -127,7 +132,7 @@ public class LevelManager : MonoBehaviour {
             players[i].SetHomeSeat(Seats[UnityEngine.Random.Range(0, Seats.Length - 1)]);
             players[i].Reset();
         }
-        levelText.text = "Get the answer!";
+        levelText.text = LevelStartText;
         allPlayerWon = false;
     }
 
@@ -214,7 +219,7 @@ public class LevelManager : MonoBehaviour {
     {
         if (foundPlayer)
         {
-            levelText.text = "YOU WERE SPOTTED!";
+            levelText.text = EndSpottedText;
         }
         else if (allPlayerWon)
         {
@@ -223,6 +228,10 @@ public class LevelManager : MonoBehaviour {
             {
                 levelText.text += "Player" + (i + 1) + "'s Score: " + CalcScore() + "\n\n"; 
             }
+        }
+        else if (timeLeft <= 0)
+        {
+            levelText.text = TimeRunOutText;
         }
     }
 
