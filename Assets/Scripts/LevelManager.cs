@@ -38,8 +38,10 @@ public class LevelManager : MonoBehaviour {
     private const string EndSpottedText = "You Were Spotted!";
     private const string TimeRunOutText = "Out of Time!";
 
+    
     // Use this for initialization
     void Start () {
+        InitiateSeats();
         SpawnAllPlayers();
         SpawnAllEnemies();
 
@@ -111,6 +113,7 @@ public class LevelManager : MonoBehaviour {
         {
             players[i].SetHomeSeat(Seats[UnityEngine.Random.Range(0, Seats.Length - 1)]);
             players[i].instance = Instantiate(playerPrefab, players[i].homeSeat.transform.position + Positions.seatOffset, players[i].homeSeat.transform.rotation) as GameObject;
+            PlayerList.players.Add(players[i].instance);
             players[i].Setup(AnswerDestinations);
         }
 
@@ -238,5 +241,13 @@ public class LevelManager : MonoBehaviour {
     private float CalcScore()
     {
         return Mathf.Round(timeMultiplier * timeLeft);
+    }
+
+    private void InitiateSeats()
+    {
+        for (int i = 0; i < Seats.Length; i++)
+        {
+            Seats[i].GetComponent<SeatTrigger>().seatNum = i + 1;
+        }
     }
 }
