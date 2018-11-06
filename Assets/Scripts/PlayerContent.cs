@@ -21,9 +21,47 @@ public class PlayerContent : MonoBehaviour {
     public List<GameObject> answerDestinations;
     public GameObject homeSeat;
 
+    public GameObject upInd;
+    public GameObject downInd;
+    public GameObject rightInd;
+    public GameObject leftInd;
+
+    public float blinkDuration = 0.2f;
+    public DirectionEnum.Directions enemyDirection;
+
     public void Update()
     {
         SetFetchUI();
+    }
+
+    private IEnumerator EnemyIndicatorLoop()
+    {
+        while (true)
+        {
+            switch (enemyDirection)
+            {
+                case DirectionEnum.Directions.Up:
+                    upInd.SetActive(true);
+                    break;
+                case DirectionEnum.Directions.Down:
+                    downInd.SetActive(true);
+                    break;
+                case DirectionEnum.Directions.Right:
+                    rightInd.SetActive(true);
+                    break;
+                case DirectionEnum.Directions.Left:
+                    leftInd.SetActive(true);
+                    break;
+                case DirectionEnum.Directions.None:
+                    break;
+            }
+            yield return new WaitForSeconds(blinkDuration);
+            upInd.SetActive(false);
+            downInd.SetActive(false);
+            rightInd.SetActive(false);
+            leftInd.SetActive(false);
+            yield return new WaitForSeconds(blinkDuration);
+        }
     }
 
     public bool ReachedHomeSeat()
@@ -43,9 +81,11 @@ public class PlayerContent : MonoBehaviour {
 
     public void Reset()
     {
+        enemyDirection = DirectionEnum.Directions.None;
         currentSeatNum = 0;
         answers.Clear();
         SetAnswers();
+        StartCoroutine(EnemyIndicatorLoop());
     }
 
     public void SetAnswers()

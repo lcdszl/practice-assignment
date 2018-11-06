@@ -16,6 +16,8 @@ public class LevelManager : MonoBehaviour {
     public float startWait = 2f;
     public float endWait = 2f;
 
+
+
     public EnemyManager[] enemies;
     public PlayerManager[] players;
 
@@ -31,6 +33,7 @@ public class LevelManager : MonoBehaviour {
 
     private float timeLeft;
 
+    private float warningDist = 50f;
     private bool foundPlayer;
     private bool allPlayerWon;
 
@@ -81,6 +84,7 @@ public class LevelManager : MonoBehaviour {
             foundPlayer = FoundPlayer();
             allPlayerWon = AllPlayerWon();
             IncrementTimer();
+            SetEnemyIndicator();
             yield return null;
         }
     }
@@ -168,6 +172,53 @@ public class LevelManager : MonoBehaviour {
         for (int i = 0; i < players.Length; i++)
         {
             players[i].EnableControl();
+        }
+    }
+
+    public void SetEnemyIndicator()
+    {
+        for (int i = 0; i < players.Length; i++)
+        {
+            float dist = float.MaxValue;
+            Vector3 playerLocation = players[i].instance.transform.position;
+            Vector3 closestEnemy = new Vector3();
+            for (int j = 0; j < enemies.Length; j++)
+            {
+                if (Vector3.Distance(enemies[j].instance.transform.position, playerLocation) <= dist)
+                {
+                    closestEnemy = enemies[j].instance.transform.position;
+                    dist = Vector3.Distance(enemies[j].instance.transform.position, playerLocation);
+                }
+            }
+            if (dist < warningDist)
+            {
+                if (Mathf.Abs((closestEnemy-playerLocation).y) < Mathf.Abs((closestEnemy - playerLocation).x))
+                {
+                    if (closestEnemy.x > playerLocation.x)
+                    {
+                        players[i].playerContent.enemyDirection = DirectionEnum.Directions.Right;
+                    }
+                    else
+                    {
+                        players[i].playerContent.enemyDirection = DirectionEnum.Directions.Left;
+                    }
+                }
+                else
+                {
+                    if (closestEnemy.y > playerLocation.y)
+                    {
+                        players[i].playerContent.enemyDirection = DirectionEnum.Directions.Up;
+                    }
+                    else
+                    {
+                        players[i].playerContent.enemyDirection = DirectionEnum.Directions.Down;
+                    }
+                }
+            }
+            else
+            {
+                players[i].playerContent.enemyDirection = DirectionEnum.Directions.None;
+            }
         }
     }
 

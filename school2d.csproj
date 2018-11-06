@@ -221,6 +221,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraControl.cs" />
     <Compile Include="Assets\Scripts\DeskTrigger.cs" />
+    <Compile Include="Assets\Scripts\DirectionEnum.cs" />
     <Compile Include="Assets\Scripts\EnemyManager.cs" />
     <Compile Include="Assets\Scripts\EnemyMovement.cs" />
     <Compile Include="Assets\Scripts\EnemyRoutine.cs" />
