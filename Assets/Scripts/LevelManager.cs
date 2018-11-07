@@ -30,6 +30,7 @@ public class LevelManager : MonoBehaviour {
     public Text timerDisplay;
     public GameObject levelImage;
     public Text levelText;
+    public GameObject backBtnHolder;
 
     private float timeLeft;
 
@@ -235,12 +236,14 @@ public class LevelManager : MonoBehaviour {
     private void EnableTimerUI()
     {
         timeLeft = totalTime;
-        timerHolder.SetActive(true);  
+        timerHolder.SetActive(true);
+        backBtnHolder.SetActive(true);
     }
 
     private void DisableTimerUI()
     {
         timerHolder.SetActive(false);
+        backBtnHolder.SetActive(false);
     }
 
     private void IncrementTimer()

@@ -228,6 +228,7 @@
     <Compile Include="Assets\Scripts\FieldOfView.cs" />
     <Compile Include="Assets\Scripts\FieldOfViewEditor.cs" />
     <Compile Include="Assets\Scripts\LevelManager.cs" />
+    <Compile Include="Assets\Scripts\OnClickLoad.cs" />
     <Compile Include="Assets\Scripts\PlayerContent.cs" />
     <Compile Include="Assets\Scripts\PlayerList.cs" />
     <Compile Include="Assets\Scripts\PlayerManager.cs" />

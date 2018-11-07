@@ -16,6 +16,7 @@ public class CameraControl : MonoBehaviour {
         if (PlayerList.players.Count != 0)
         {
             target = PlayerList.players[0].transform;
+            PlayerList.players.Clear();
         }      
       //  playerCamera = GetComponentInChildren<Camera>();
     }
@@ -41,6 +42,7 @@ public class CameraControl : MonoBehaviour {
             if (PlayerList.players.Count != 0)
             {
                 target = PlayerList.players[0].transform;
+                PlayerList.players.Clear();
             }
         }
     }
