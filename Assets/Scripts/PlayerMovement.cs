@@ -6,11 +6,16 @@ public class PlayerMovement : MonoBehaviour {
 
     private Rigidbody2D rb2d;
     public float velocity = 10f;
-
+    //181106LIYUX
+    private Animator playerAnimation; 
+    //181106
 	// Use this for initialization
 	void OnEnable () {
         rb2d = GetComponent<Rigidbody2D>();
         rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
+        //181106LIYUX
+        playerAnimation = GetComponent<Animator>();
+        //181106
 	}
 
     private void OnDisable()
@@ -26,6 +31,9 @@ public class PlayerMovement : MonoBehaviour {
         Vector2 movement = new Vector2(h * Mathf.Abs(Mathf.Cos(Mathf.Atan2(v, h))), v * Mathf.Abs(Mathf.Sin(Mathf.Atan2(v, h))));
 
         rb2d.velocity = movement * velocity;
+        //181106LIYUX
+        playerAnimation.SetFloat("Speed",rb2d.velocity.x);
+        //181106
 	}
 
 
