@@ -32,7 +32,14 @@ public class PlayerMovement : MonoBehaviour {
 
         rb2d.velocity = movement * velocity;
         //181106LIYUX
-        playerAnimation.SetFloat("Speed",rb2d.velocity.x);
+        playerAnimation.SetFloat("Speed",Mathf.Abs(rb2d.velocity.x));
+        if(h > 0){
+            transform.localScale = new Vector2(3f,3f);
+        }
+        else if(h < 0){
+            transform.localScale = new Vector2(-3f,3f);
+        }
+
         //181106
 	}
 
