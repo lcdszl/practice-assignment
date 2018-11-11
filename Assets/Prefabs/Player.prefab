@@ -119,6 +119,7 @@ GameObject:
   - component: {fileID: 50930034788890672}
   - component: {fileID: 114039962964012140}
   - component: {fileID: 61557582107000212}
+  - component: {fileID: 114916239275822768}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -591,6 +592,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: 20
+--- !u!114 &114916239275822768
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1354808007893212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5af138598cbd40441b6057f0d17c9f6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialog:
+    Dialogs: []
+    Name: 
 --- !u!212 &212298426442276214
 SpriteRenderer:
   m_ObjectHideFlags: 1

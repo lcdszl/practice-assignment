@@ -13,10 +13,13 @@ public class LevelManager : MonoBehaviour {
     public GameObject playerPrefab;
     public float timeMultiplier;
 
+    public Dialog[] PlayerDialogs;
+    public Dialog[] EnemyDialogs;
+
     public float startWait = 2f;
     public float endWait = 2f;
 
-
+    public CameraControl cameraControl;
 
     public EnemyManager[] enemies;
     public PlayerManager[] players;
@@ -31,6 +34,9 @@ public class LevelManager : MonoBehaviour {
     public GameObject levelImage;
     public Text levelText;
     public GameObject backBtnHolder;
+
+    public bool inDialogP = true;
+    public bool inDialogE = true;
 
     private float timeLeft;
 
@@ -48,7 +54,7 @@ public class LevelManager : MonoBehaviour {
         InitiateSeats();
         SpawnAllPlayers();
         SpawnAllEnemies();
-
+        cameraControl = FindObjectOfType<CameraControl>();
         startWaitSec = new WaitForSeconds(startWait);
         endWaitSec = new WaitForSeconds(endWait);
 
@@ -71,12 +77,23 @@ public class LevelManager : MonoBehaviour {
         DisableAllEnemies();
         DisableAllPlayers();
         EnableLevelUI();
-        yield return startWaitSec;
+        yield return startWaitSec;      
     }
 
     private IEnumerator LevelPlaying()
     {
         DisableLevelUI();
+        inDialogE = true;
+        inDialogP = true;
+        while (inDialogP)
+        {
+            yield return EnableAllPlayersDialog();
+        }
+        while (inDialogE)
+        {
+            yield return EnableAllEnemyDialog();
+        }
+
         EnableTimerUI();
         EnableAllEnemies();
         EnableAllPlayers();
@@ -107,6 +124,8 @@ public class LevelManager : MonoBehaviour {
         {
             enemies[i].instance = Instantiate(enemyPrefab, enemies[i].spawnPoint.position, enemies[i].spawnPoint.rotation) as GameObject;
             enemies[i].Setup(EnemyWaypoints[i].EnemyWaypoints);
+            enemies[i].dialog.dialog = EnemyDialogs[i];
+            enemies[i].dialog.dialog.CameraLocation = enemies[i].instance.transform.position;
         }
 
     }
@@ -120,6 +139,8 @@ public class LevelManager : MonoBehaviour {
             players[i].instance = Instantiate(playerPrefab, players[i].homeSeat.transform.position + Positions.seatOffset, players[i].homeSeat.transform.rotation) as GameObject;
             PlayerList.players.Add(players[i].instance);
             players[i].Setup(AnswerDestinations);
+            players[i].dialog.dialog = PlayerDialogs[i];
+            players[i].dialog.dialog.CameraLocation = players[i].instance.transform.position;
         }
 
     }
@@ -154,6 +175,7 @@ public class LevelManager : MonoBehaviour {
 
     public void DisableAllPlayers()
     {
+        cameraControl.inGame = false;
         for (int i = 0; i < players.Length; i++)
         {
             players[i].DisableControl();
@@ -170,10 +192,30 @@ public class LevelManager : MonoBehaviour {
 
     public void EnableAllPlayers()
     {
+        cameraControl.inGame = true;
         for (int i = 0; i < players.Length; i++)
         {
             players[i].EnableControl();
         }
+    }
+
+    public IEnumerator EnableAllPlayersDialog()
+    {
+        
+        for (int i = 0; i < players.Length; i++)
+        {
+            yield return StartDialogTurn(players[i].instance);
+        }
+        inDialogP = false;
+    }
+
+    public IEnumerator EnableAllEnemyDialog()
+    {
+        for (int i=0; i<enemies.Length; i++)
+        {
+            yield return StartDialogTurn(enemies[i].instance);
+        }
+        inDialogE = false;
     }
 
     public void SetEnemyIndicator()
@@ -303,5 +345,12 @@ public class LevelManager : MonoBehaviour {
         {
             Seats[i].GetComponent<SeatTrigger>().seatNum = i + 1;
         }
+    }
+
+    private IEnumerator StartDialogTurn(GameObject gameObject)
+    {
+        DialogTrigger dTrigger = gameObject.GetComponent<DialogTrigger>();
+        cameraControl.MoveCamera(gameObject.transform.position);
+        return dTrigger.TriggerDialog();
     }
 }

@@ -966,6 +966,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dampTime: 0.1
+  inGame: 0
 --- !u!1 &473440164 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1307862508280618, guid: 097e80ceba1e1d046b266ebdacb12a9c,
@@ -3371,15 +3372,29 @@ MonoBehaviour:
   playerPrefab: {fileID: 1354808007893212, guid: 938401555a6d9c342946ab3de89ca3ac,
     type: 2}
   timeMultiplier: 20
+  PlayerDialogs:
+  - Dialogs:
+    - yoo this is player1
+    - I am gonna win this game
+    - pce out
+    Name: Player1
+  EnemyDialogs:
+  - Dialogs:
+    - yo this is teacher 1
+    - I am gonna catch u
+    Name: Teacher1
   startWait: 2
   endWait: 2
+  cameraControl: {fileID: 0}
   enemies:
   - spawnPoint: {fileID: 353420850}
     instance: {fileID: 0}
     enemyNum: 0
+    dialog: {fileID: 0}
   - spawnPoint: {fileID: 82127696}
     instance: {fileID: 0}
     enemyNum: 0
+    dialog: {fileID: 0}
   players:
   - playerColor: {r: 0, g: 0, b: 0, a: 0}
     playerNum: 0
@@ -3387,6 +3402,7 @@ MonoBehaviour:
     homeSeat: {fileID: 0}
     playerMovement: {fileID: 0}
     playerContent: {fileID: 0}
+    dialog: {fileID: 0}
   totalTime: 60
   timerHolder: {fileID: 2102996431}
   timerDisplay: {fileID: 1066183091}
