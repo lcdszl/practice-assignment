@@ -11,6 +11,8 @@ public class EnemyManager {
     public GameObject instance;
     [HideInInspector]
     public int enemyNum;
+    [HideInInspector]
+    public DialogTrigger dialog;
 
     private EnemyMovement enemyMovement;
     private FieldOfView fieldOfView;
@@ -19,7 +21,8 @@ public class EnemyManager {
     {
         enemyMovement = instance.GetComponent<EnemyMovement>();
         fieldOfView = instance.GetComponent<FieldOfView>();
-        enemyMovement.waypoints = wayPoints;
+        dialog = instance.GetComponent<DialogTrigger>();
+        enemyMovement.waypoints = wayPoints;       
     }
 
     public void DisableMovement()

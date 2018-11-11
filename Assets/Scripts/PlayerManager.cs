@@ -17,13 +17,15 @@ public class PlayerManager {
     public PlayerMovement playerMovement;
     [HideInInspector]
     public PlayerContent playerContent;
-
+    [HideInInspector]
+    public DialogTrigger dialog;
     private const int SPAWN_INDEX = 1;
 
     public void Setup(List<GameObject> answerDests)
     {
         playerMovement = instance.GetComponent<PlayerMovement>();
         playerContent = instance.GetComponent<PlayerContent>();
+        dialog = instance.GetComponent<DialogTrigger>();
         playerContent.answerDestinations = answerDests;
         playerContent.homeSeat = homeSeat;
         playerContent.SetAnswers();
