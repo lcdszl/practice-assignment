@@ -5,8 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class OnClickLoad : MonoBehaviour {
 
-	public void LoadLevel(int level)
+    public bool inPause;
+
+    public void Start()
+    {
+        inPause = false;
+    }
+
+    public void LoadLevel(int level)
     {
         SceneManager.LoadScene(level);
+    }
+
+    public void PauseGame()
+    {
+        inPause = !inPause;
+        Time.timeScale = inPause ? 0 : 1;       
     }
 }
