@@ -1,0 +1,23 @@
+﻿<Properties StartupConfiguration="{56AA72BC-A4BD-32A9-2893-8FB057DC8978}|">
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerMovement.cs">
+    <Files>
+      <File FileName="Assets/Scripts/LevelManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Positions.cs" Line="7" Column="1" />
+      <File FileName="Assets/Scripts/FieldOfViewEditor.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/FieldOfView.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/EnemyMovement.cs" Line="25" Column="41" />
+      <File FileName="Assets/Scripts/SeatTrigger.cs" Line="13" Column="6" />
+      <File FileName="../../../Desktop/Unity/2D_tutorial/2D_Practice/Assets/Scripts/PlayerController.cs" Line="55" Column="1" />
+      <File FileName="Assets/Scripts/PlayerMovement.cs" Line="18" Column="6" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/liyuxuan/Documents/GitHub/practice-assignment/Assets/Scripts/LevelManager.cs" relfile="Assets/Scripts/LevelManager.cs" line="38" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>

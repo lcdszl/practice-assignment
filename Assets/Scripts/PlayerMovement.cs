@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,13 +10,12 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 touchPoint = -Vector2.one;
     private Animator playerAnimation;
-	
     // Use this for initialization
     void OnEnable()
     {
         rb2d = GetComponent<Rigidbody2D>();
         rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
-	playerAnimation = GetComponent<Animator>();
+        playerAnimation = GetComponent<Animator>();
     }
 
     private void OnDisable()
