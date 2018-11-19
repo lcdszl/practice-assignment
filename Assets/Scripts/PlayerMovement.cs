@@ -44,9 +44,6 @@ public class PlayerMovement : MonoBehaviour {
      
 	}
 
-   /* public void SpeedUp(){
-        rb2d.velocity = rb2d.velocity * 3;
-    }*/
 
    
 
