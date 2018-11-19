@@ -10,7 +10,6 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 touchPoint = -Vector2.one;
     private Animator playerAnimation;
-
     // Use this for initialization
     void OnEnable()
     {
@@ -47,11 +46,16 @@ public class PlayerMovement : MonoBehaviour
         Vector2 movement = Vector3.Normalize(new Vector2(h * Mathf.Abs(Mathf.Cos(Mathf.Atan2(v, h))), v * Mathf.Abs(Mathf.Sin(Mathf.Atan2(v, h))))) ;
 
         rb2d.velocity = movement * velocity;
-
-        playerAnimation.SetFloat("Speed", Mathf.Abs(rb2d.velocity.x));         if (h > 0)
-        {             transform.localScale = new Vector2(3f, 3f);         }         else if (h < 0)
-        {             transform.localScale = new Vector2(-3f, 3f);         } 
-    }
+	
+	playerAnimation.SetFloat("Speed", Mathf.Abs(rb2d.velocity.x));
+        if (h > 0){
+            transform.localScale = new Vector2(3f, 3f);
+        }
+        else if (h < 0){
+            transform.localScale = new Vector2(-3f, 3f);
+        }
+	
+	}
 
 
 

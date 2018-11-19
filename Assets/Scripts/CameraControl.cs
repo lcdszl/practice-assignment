@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraControl : MonoBehaviour {
 
     public float dampTime = 0.1f;
-
+    public bool inGame = false;
 
     // private Camera playerCamera;
     private Transform target;
@@ -16,22 +16,34 @@ public class CameraControl : MonoBehaviour {
         if (PlayerList.players.Count != 0)
         {
             target = PlayerList.players[0].transform;
+            PlayerList.players.Clear();
         }      
       //  playerCamera = GetComponentInChildren<Camera>();
     }
 
     // Update is called once per frame
     private void FixedUpdate () {
-        CheckCameraTarget();
-        MoveCamera();
+        if (inGame)
+        {
+            CheckCameraTarget();
+            MoveCameraOnPlayer();
+        }
 	}
 
-    private void MoveCamera()
+    private void MoveCameraOnPlayer()
     {
         if (target != null)
         {
             transform.position = Vector3.SmoothDamp(transform.position, target.position, ref refMoveVelocity, dampTime);
         }      
+    }
+
+    public void MoveCamera(Vector3 dest)
+    {
+        if (dest != null)
+        {
+            transform.position = Vector3.SmoothDamp(transform.position, dest, ref refMoveVelocity, 0.0f);
+        }
     }
 
     private void CheckCameraTarget()
@@ -41,6 +53,7 @@ public class CameraControl : MonoBehaviour {
             if (PlayerList.players.Count != 0)
             {
                 target = PlayerList.players[0].transform;
+                PlayerList.players.Clear();
             }
         }
     }
