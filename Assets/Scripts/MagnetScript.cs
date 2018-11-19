@@ -21,6 +21,7 @@ public class MagnetScript : MonoBehaviour {
 
             Destroy(gameObject);
             //collision.gameObject.SendMessage("SpeedUp");
+            GamePlayer = collision.GetComponent<PlayerMovement>();
             GamePlayer.velocity = GamePlayer.velocity * 2;
         }
     }
