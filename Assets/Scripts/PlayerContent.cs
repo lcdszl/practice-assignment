@@ -69,7 +69,7 @@ public class PlayerContent : MonoBehaviour {
         return currentSeatNum == homeSeat.GetComponent<SeatTrigger>().seatNum;
     }
 
-    public bool HasWon()
+    public virtual bool HasWon()
     {
         bool gotAnswers = answers.Count > 0 ? true : false;
         foreach (bool gotAnswer in answers.Values)

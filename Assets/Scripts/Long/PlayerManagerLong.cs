@@ -4,7 +4,9 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class PlayerManager {
+public class PlayerManagerLong
+{
+    public Transform spawnPoint;
     [HideInInspector]
     public Color playerColor;
     [HideInInspector]
@@ -14,17 +16,17 @@ public class PlayerManager {
 
     public GameObject homeSeat;
     [HideInInspector]
-    public PlayerMovement playerMovement;
+    public PlayerMovementLong playerMovement;
     [HideInInspector]
-    public PlayerContent playerContent;
+    public PlayerContentLong playerContent;
     [HideInInspector]
     public DialogTrigger dialog;
     private const int SPAWN_INDEX = 1;
 
     public virtual void Setup(List<GameObject> answerDests)
     {
-        playerMovement = instance.GetComponent<PlayerMovement>();
-        playerContent = instance.GetComponent<PlayerContent>();
+        playerMovement = instance.GetComponent<PlayerMovementLong>();
+        playerContent = instance.GetComponent<PlayerContentLong>();
         dialog = instance.GetComponent<DialogTrigger>();
         playerContent.answerDestinations = answerDests;
         playerContent.homeSeat = homeSeat;
@@ -50,8 +52,8 @@ public class PlayerManager {
 
     public void Reset()
     {
-        instance.transform.position = homeSeat.transform.position + Positions.seatOffset;
-        playerContent.homeSeat = homeSeat;
+        instance.transform.position = spawnPoint.transform.position;
+        //playerContent.homeSeat = homeSeat;
         instance.SetActive(false);
         instance.SetActive(true);
     }

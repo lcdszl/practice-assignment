@@ -2,27 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovementLong : PlayerMovement
 {
-
-    protected Rigidbody2D rb2d;
-    public float velocity = 10f;
-
-    protected Vector2 touchPoint = -Vector2.one;
-
-    // Use this for initialization
-    void OnEnable()
-    {
-        rb2d = GetComponent<Rigidbody2D>();
-        rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
-    }
-
-    private void OnDisable()
-    {
-        rb2d.velocity = new Vector2(0, 0);
-    }
-
-    public virtual void FixedUpdate()
+    public override void FixedUpdate()
     {
 
 #if UNITY_STANDALONE || UNITY_STANDALONE_OSX
@@ -36,17 +18,14 @@ public class PlayerMovement : MonoBehaviour
         if (Input.touchCount > 0){
             Touch myTouch = Input.touches[0];
             touchPoint = myTouch.position;
-            v = touchPoint.y - (Screen.height / 2);
+            v = touchPoint.y - (Screen.height / 3);
             h = touchPoint.x - (Screen.width / 2);
         }
 #endif
-        //v = Mathf.Max(v, 0);
+        v = Mathf.Max(v, 0);
 
         Vector2 movement = Vector3.Normalize(new Vector2(h * Mathf.Abs(Mathf.Cos(Mathf.Atan2(v, h))), v * Mathf.Abs(Mathf.Sin(Mathf.Atan2(v, h))))) ;
 
         rb2d.velocity = movement * velocity;
 	}
-
-
-
 }
