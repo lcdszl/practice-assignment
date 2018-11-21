@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float velocity = 10f;
     
     private Vector2 touchPoint = -Vector2.one;
-    private Animator playerAnimation;
+    protected Animator playerAnimation;
 
     // Use this for initialization
     void OnEnable()

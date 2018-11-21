@@ -27,5 +27,6 @@ public class PlayerMovementLong : PlayerMovement
         Vector2 movement = Vector3.Normalize(new Vector2(h * Mathf.Abs(Mathf.Cos(Mathf.Atan2(v, h))), v * Mathf.Abs(Mathf.Sin(Mathf.Atan2(v, h))))) ;
 
         rb2d.velocity = movement * velocity;
-	}
+        playerAnimation.SetFloat("Speed", Mathf.Abs(rb2d.velocity.x));
+    }
 }
