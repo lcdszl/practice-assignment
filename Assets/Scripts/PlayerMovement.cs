@@ -5,11 +5,12 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    private Rigidbody2D rb2d;
+    protected Rigidbody2D rb2d;
     public float velocity = 10f;
-
+    
     private Vector2 touchPoint = -Vector2.one;
     private Animator playerAnimation;
+
     // Use this for initialization
     void OnEnable()
     {
@@ -23,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
         rb2d.velocity = new Vector2(0, 0);
     }
 
-    void FixedUpdate()
+    public virtual void FixedUpdate()
     {
 
 #if UNITY_STANDALONE || UNITY_STANDALONE_OSX
@@ -41,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
             h = touchPoint.x - (Screen.width / 2);
         }
 #endif
-
+        //v = Mathf.Max(v, 0);
 
         Vector2 movement = Vector3.Normalize(new Vector2(h * Mathf.Abs(Mathf.Cos(Mathf.Atan2(v, h))), v * Mathf.Abs(Mathf.Sin(Mathf.Atan2(v, h))))) ;
 

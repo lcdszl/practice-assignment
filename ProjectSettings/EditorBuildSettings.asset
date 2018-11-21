@@ -8,9 +8,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/main.unity
     guid: 9aea32dad6dbf66439c6881c920083a9
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/school1.unity
     guid: 24aaa9a3ce16f3a4fb4c3fe47347feef
   - enabled: 0
     path: Assets/Scenes/school2.unity
     guid: 93dcfa5d3e56d50499d43d0100cd899c
+  - enabled: 1
+    path: Assets/Scenes/schoolLong.unity
+    guid: b2f50757062284cdd89033aaf60ca593
+  m_configObjects: {}

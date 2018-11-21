@@ -34,7 +34,7 @@ public class CameraControl : MonoBehaviour {
     {
         if (target != null)
         {
-            transform.position = Vector3.SmoothDamp(transform.position, target.position, ref refMoveVelocity, dampTime);
+            transform.position = Vector3.SmoothDamp(transform.position, target.position + Positions.PlAYER_CAMERA_OFFSET, ref refMoveVelocity, dampTime);
         }      
     }
 
